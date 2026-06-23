@@ -17,6 +17,7 @@ sys.path.append(
 
 import streamlit as st
 
+from backend.database.db import init_db
 from backend.database.operations import (
     get_chat_history,
     save_chat
@@ -62,6 +63,8 @@ st.set_page_config(
 )
 
 apply_theme()
+
+init_db()
 
 # ============================================
 # SESSION STATE
