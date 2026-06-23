@@ -17,11 +17,23 @@ sys.path.append(
 
 import streamlit as st
 
-from backend.database.db import init_db
-from backend.database.operations import (
-    get_chat_history,
-    save_chat
-)
+import traceback
+
+try:
+    from backend.database.db import init_db
+    from backend.database.operations import (
+        get_chat_history,
+        save_chat
+    )
+except Exception as e:
+    tb = traceback.format_exc()
+    print("Error importing backend.database modules:\n", tb)
+    try:
+        with open("import_error.log", "w", encoding="utf-8") as f:
+            f.write(tb)
+    except Exception:
+        pass
+    raise
 
 from backend.rag.ingest import (
     load_pdf,
